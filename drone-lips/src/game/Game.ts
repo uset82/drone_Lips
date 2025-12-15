@@ -678,7 +678,9 @@ export class Game {
     const wind = stopActive ? 0 : clamp(this.level.windForce, 0, 1);
     const windDriftX = wind > 0 ? Math.sin(nowMs * 0.00025) * wind * 0.8 : 0;
 
-    const strafeX = clamp(input.moveX + windDriftX, -1, 1);
+    // Camera is behind the player looking "forward" (+Z), so screen X is flipped vs world X.
+    // Invert movement X here so controls feel natural: Left => left, Right => right.
+    const strafeX = clamp(-(input.moveX + windDriftX), -1, 1);
     const strafeY = input.moveY;
 
     this.updateSpeed(dt, boost, stopActive);
