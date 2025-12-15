@@ -1227,16 +1227,21 @@ export default function DroneGame() {
       ) : null}
 
       {phase === 'playing' || phase === 'paused' ? (
-        <>
-          <div
-            style={{
-              position: 'absolute',
-              left: 'calc(12px + env(safe-area-inset-left, 0px))',
-              bottom: `calc(${12 + viewportBottomInset}px + env(safe-area-inset-bottom, 0px))`,
-              zIndex: 120,
-              pointerEvents: 'none',
-            }}
-          >
+        <div
+          style={{
+            position: 'absolute',
+            left: 'calc(12px + env(safe-area-inset-left, 0px))',
+            right: 'calc(12px + env(safe-area-inset-right, 0px))',
+            bottom: `calc(${12 + viewportBottomInset}px + env(safe-area-inset-bottom, 0px))`,
+            zIndex: 120,
+            pointerEvents: 'none',
+            display: 'grid',
+            gridTemplateColumns: 'auto minmax(0, 1fr) auto',
+            alignItems: 'end',
+            columnGap: 14,
+          }}
+        >
+          <div style={{ pointerEvents: 'none' }}>
             <button
               type="button"
               aria-label="Stop / Hover (hold)"
@@ -1266,15 +1271,7 @@ export default function DroneGame() {
               style={stopBtnStyle}
             >
               <div aria-hidden style={actionBtnSheenStyle} />
-              <div
-                style={{
-                  position: 'relative',
-                  zIndex: 2,
-                  display: 'grid',
-                  gap: 6,
-                  placeItems: 'center',
-                }}
-              >
+              <div style={{ position: 'relative', zIndex: 2, display: 'grid', gap: 6, placeItems: 'center' }}>
                 <div style={actionBtnLabelStyle}>Stop</div>
               </div>
             </button>
@@ -1282,15 +1279,10 @@ export default function DroneGame() {
 
           <div
             style={{
-              position: 'absolute',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              bottom: `calc(${12 + viewportBottomInset}px + env(safe-area-inset-bottom, 0px))`,
-              zIndex: 120,
               pointerEvents: 'none',
-              maxWidth: 'calc(100vw - 24px)',
               display: 'flex',
               justifyContent: 'center',
+              minWidth: 0,
             }}
           >
             <div
@@ -1302,9 +1294,11 @@ export default function DroneGame() {
                 borderRadius: 999,
                 padding: 8,
                 display: 'flex',
+                flexWrap: 'wrap',
                 gap: 10,
                 alignItems: 'center',
                 justifyContent: 'center',
+                maxWidth: '100%',
                 backdropFilter: 'blur(10px) saturate(160%)',
                 WebkitBackdropFilter: 'blur(10px) saturate(160%)',
                 boxShadow: '0 18px 44px rgba(0,0,0,0.55)',
@@ -1346,14 +1340,10 @@ export default function DroneGame() {
 
           <div
             style={{
-              position: 'absolute',
-              right: 'calc(12px + env(safe-area-inset-right, 0px))',
-              bottom: `calc(${12 + viewportBottomInset}px + env(safe-area-inset-bottom, 0px))`,
-              zIndex: 120,
+              pointerEvents: 'none',
               display: 'grid',
               gap: 18,
               justifyItems: 'end',
-              pointerEvents: 'none',
             }}
           >
             <button type="button" onClick={fireMissile} style={missileBtnStyle} aria-label="Misile">
@@ -1370,7 +1360,7 @@ export default function DroneGame() {
               </div>
             </button>
           </div>
-        </>
+        </div>
       ) : null}
 
       {phase === 'intro' ? (
