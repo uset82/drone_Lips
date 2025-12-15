@@ -8,6 +8,7 @@
 [![Three.js](https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.js&logoColor=white)](https://threejs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
+[![Augment](https://img.shields.io/badge/Augment_Code-7C3AED?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIgMkw0IDdWMTdMOCAyMEwxMiAxOEwxNiAyMEwyMCAxN1Y3TDEyIDJaIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=&logoColor=white)](https://docs.augmentcode.com/cli/sdk)
 
 <br/>
 
@@ -90,11 +91,25 @@ Designed for players who can primarily move their mouth — gaming for everyone.
 
 <div align="center">
 
-| Frontend | 3D Engine | Face Tracking | Language |
-|:--------:|:---------:|:-------------:|:--------:|
-| [Astro](https://astro.build) + [React](https://react.dev) | [Three.js](https://threejs.org) + R3F | [MediaPipe](https://developers.google.com/mediapipe) | TypeScript |
+| Frontend | 3D Engine | Face Tracking | AI Assistant | Language |
+|:--------:|:---------:|:-------------:|:------------:|:--------:|
+| [Astro](https://astro.build) + [React](https://react.dev) | [Three.js](https://threejs.org) + R3F | [MediaPipe](https://developers.google.com/mediapipe) | [Augment SDK](https://docs.augmentcode.com/cli/sdk) | TypeScript |
 
 </div>
+
+---
+
+## 🤖 Powered by Augment Code
+
+This project uses the [**Augment Code SDK**](https://docs.augmentcode.com/cli/sdk) for AI-assisted development features. Augment provides an intelligent coding assistant that helped build and iterate on this game.
+
+```bash
+# Start the dev server with Auggie (AI assistant)
+npm run dev
+
+# Or run just the UI without AI features
+npm run dev:ui
+```
 
 ---
 
