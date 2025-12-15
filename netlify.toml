@@ -1,6 +1,6 @@
 [build]
-  command = "npm ci --include=dev --prefix drone-lips && npm run build --prefix drone-lips"
-  publish = "drone-lips/dist"
+  command = "set -e; if [ -f drone-lips/package.json ]; then npm ci --include=dev --prefix drone-lips && npm run build --prefix drone-lips && rm -rf dist && cp -r drone-lips/dist dist; else npm ci --include=dev && npm run build; fi"
+  publish = "dist"
 
 [build.environment]
   NODE_VERSION = "20"

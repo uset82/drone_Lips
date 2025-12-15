@@ -309,7 +309,8 @@ export default function DroneGame() {
   }, [handleRecalibrate, handleStart, togglePause]);
 
   useEffect(() => {
-    faceTrackerRef.current = new FaceTracker({ invertX: false });
+    // The webcam preview is mirrored (scaleX(-1)), so invert X to keep controls intuitive.
+    faceTrackerRef.current = new FaceTracker({ invertX: true });
     faceTrackerRef.current.setHandlers({
       onControls: (c) => {
         faceControlsRef.current = c;

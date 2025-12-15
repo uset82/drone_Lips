@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
+    "@vitejs/plugin-basic-ssl": "^2.1.0",
     "@typescript-eslint/eslint-plugin": "^8.49.0",
     "@typescript-eslint/parser": "^8.49.0",
     "eslint": "^9.39.1",
