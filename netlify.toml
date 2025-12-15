@@ -1,0 +1,6 @@
+[build]
+  command = "npm ci --include=dev --prefix drone-lips && npm run build --prefix drone-lips"
+  publish = "drone-lips/dist"
+
+[build.environment]
+  NODE_VERSION = "20"
