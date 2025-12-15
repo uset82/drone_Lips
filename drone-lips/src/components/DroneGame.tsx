@@ -1501,18 +1501,23 @@ export default function DroneGame() {
           >
             <div style={{ fontSize: 18, fontWeight: 900, marginBottom: 6 }}>Worlds</div>
             <div style={{ fontSize: 13, opacity: 0.85, marginBottom: 12 }}>
-              Currently playable: Level 1 (Earth Park) and Level 8 (Orbit).
+              Choose any world. (Some worlds share visuals for now.)
             </div>
 
             <div style={{ display: 'grid', gap: 10 }}>
               {LEVELS.map((l) => {
-                const enabled = l.id === 1 || l.id === 8;
                 const selected = l.id === levelId;
+                const worldType =
+                  l.environment === 'orbit' ||
+                  l.environment === 'upper-atmos' ||
+                  l.environment === 'alien' ||
+                  l.environment === 'war'
+                    ? 'Space'
+                    : 'Earth';
                 return (
                   <button
                     key={l.id}
                     type="button"
-                    disabled={!enabled}
                     onClick={() => {
                       setStopHeld(false);
                       setLevelId(l.id);
@@ -1525,17 +1530,15 @@ export default function DroneGame() {
                       background: selected ? 'rgba(255,255,255,0.16)' : 'rgba(255,255,255,0.08)',
                       color: 'white',
                       textAlign: 'left',
-                      opacity: enabled ? 1 : 0.4,
-                      cursor: enabled ? 'pointer' : 'not-allowed',
+                      cursor: 'pointer',
                     }}
                   >
                     <div style={{ fontWeight: 900 }}>
                       Lv {l.id} · {l.name}
                     </div>
-                    <div style={{ fontSize: 12, opacity: 0.85, marginTop: 2 }}>{l.environment}</div>
-                    {!enabled ? (
-                      <div style={{ fontSize: 12, opacity: 0.7, marginTop: 6 }}>Coming soon.</div>
-                    ) : null}
+                    <div style={{ fontSize: 12, opacity: 0.85, marginTop: 2 }}>
+                      {worldType} · {l.environment}
+                    </div>
                   </button>
                 );
               })}
