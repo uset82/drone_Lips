@@ -1,0 +1,147 @@
+---
+import DroneGame from '../components/DroneGame.tsx';
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Drone Lips</title>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+      }
+      body {
+        background: #000;
+        font-family: Arial;
+      }
+
+      #boot-overlay {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        z-index: 999999;
+        background: radial-gradient(
+          circle at 30% 20%,
+          rgba(40, 90, 180, 0.35),
+          rgba(0, 0, 0, 0.92)
+        );
+        color: white;
+      }
+
+      #boot-overlay.hidden {
+        display: none;
+      }
+
+      #boot-card {
+        width: 520px;
+        max-width: 100%;
+        padding: 18px;
+        border-radius: 16px;
+        background: rgba(0, 0, 0, 0.68);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        backdrop-filter: blur(10px);
+      }
+
+      #boot-title {
+        font-size: 26px;
+        font-weight: 800;
+        margin-bottom: 6px;
+      }
+
+      #boot-subtitle {
+        font-size: 14px;
+        opacity: 0.9;
+      }
+
+      #boot-hint {
+        margin-top: 10px;
+        font-size: 12px;
+        opacity: 0.8;
+        line-height: 1.35;
+      }
+
+      #boot-error {
+        margin-top: 12px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        background: rgba(255, 80, 80, 0.18);
+        border: 1px solid rgba(255, 120, 120, 0.28);
+        font-size: 12px;
+        white-space: pre-wrap;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="boot-overlay">
+      <div id="boot-card">
+        <div id="boot-title">Drone Lips</div>
+        <div id="boot-subtitle">Loading…</div>
+        <div id="boot-hint">
+          If this stays black on iPhone, you’re likely failing to load the client bundle or create a
+          WebGL context. For camera/voice testing on LAN, use HTTPS with a trusted mkcert cert
+          (see `drone-lips/README.md`).
+        </div>
+        <div id="boot-error"></div>
+      </div>
+    </div>
+
+    <DroneGame client:only="react" />
+
+    <script is:inline>
+      (() => {
+        const overlay = document.getElementById('boot-overlay');
+        const errorEl = document.getElementById('boot-error');
+
+        const showError = (raw) => {
+          if (!overlay || !errorEl) return;
+          const msg = typeof raw === 'string' ? raw : String(raw ?? 'Unknown error');
+          overlay.classList.remove('hidden');
+          errorEl.textContent = msg;
+          errorEl.style.display = 'block';
+        };
+
+        const hideOverlay = () => {
+          if (!overlay) return;
+          overlay.classList.add('hidden');
+        };
+
+        window.addEventListener('drone-lips:booted', hideOverlay, { once: true });
+
+        window.addEventListener('error', (e) => {
+          try {
+            const parts = [];
+            const msg = e?.error?.message || e?.message || 'Runtime error';
+            parts.push(String(msg));
+            if (e?.filename) parts.push(`${e.filename}:${e.lineno || 0}:${e.colno || 0}`);
+            if (e?.error?.stack) parts.push(String(e.error.stack));
+            showError(parts.join('\n\n'));
+          } catch (err) {
+            showError(err?.message || String(err || 'Runtime error'));
+          }
+        });
+
+        window.addEventListener('unhandledrejection', (e) => {
+          try {
+            const reason = e?.reason;
+            const parts = [];
+            const msg = reason?.message || String(reason ?? 'Unhandled promise rejection');
+            parts.push(String(msg));
+            if (reason?.stack) parts.push(String(reason.stack));
+            showError(parts.join('\n\n'));
+          } catch (err) {
+            showError(err?.message || String(err || 'Unhandled promise rejection'));
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
